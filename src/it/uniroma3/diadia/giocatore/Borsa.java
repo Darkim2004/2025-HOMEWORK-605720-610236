@@ -51,6 +51,10 @@ public class Borsa {
 		return peso;
 	}
 	
+	public String getDescrizione() {
+		return this.toString();
+	}
+	
 	public boolean isEmpty() {
 		return this.numeroAttrezzi == 0;
 	}

@@ -21,4 +21,15 @@ public class Giocatore {
 	public Borsa getBorsa() {
 		return this.borsa;
 	}
+	
+	public String getDescrizione() {
+		return this.toString();
+	}
+	
+	public String toString() {
+		StringBuilder risultato = new StringBuilder();
+		risultato.append("Ti rimangono: " + this.cfu + " cfu\n");
+		risultato.append(this.getBorsa().getDescrizione());
+		return risultato.toString(); 
+	}
 }
