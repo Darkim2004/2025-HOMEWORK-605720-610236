@@ -6,8 +6,6 @@ class StanzaMagica extends Stanza {
 	final static private int SOGLIA_MAGICA_DEFAULT = 3;
 	private int contatoreAttrezziPosati;
 	private int sogliaMagica;
-	private int numeroAttrezzi;
-	private Attrezzo[] attrezzi;
 	
 	public StanzaMagica(String nome) {
 		this(nome, SOGLIA_MAGICA_DEFAULT);
@@ -17,22 +15,15 @@ class StanzaMagica extends Stanza {
 		super(nome);
 		this.contatoreAttrezziPosati = 0;
 		this.sogliaMagica = soglia;
-		numeroAttrezzi = super.getnumeroAttrezzi();
-		attrezzi = super.getAttrezzi();
 	}
 	
 	@Override
 	public boolean addAttrezzo(Attrezzo attrezzo) {
-		if(attrezzo == null) return false;
 		this.contatoreAttrezziPosati++;
-		if (this.contatoreAttrezziPosati > this.sogliaMagica)
+		if(this.contatoreAttrezziPosati>this.sogliaMagica) {
 			attrezzo = this.modificaAttrezzo(attrezzo);
-		if (this.numeroAttrezzi<this.attrezzi.length) {
-			this.attrezzi[this.numeroAttrezzi] = attrezzo;
-			this.numeroAttrezzi++;
-			return true;
 		}
-		else return false;
+		return super.addAttrezzo(attrezzo);
 	}
 	
 	private Attrezzo modificaAttrezzo(Attrezzo attrezzo) {
@@ -42,5 +33,10 @@ class StanzaMagica extends Stanza {
 		nomeInvertito = nomeInvertito.reverse();
 		attrezzo = new Attrezzo(nomeInvertito.toString(),pesoX2);
 		return attrezzo;
+	}
+
+	public boolean isMagica() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 }

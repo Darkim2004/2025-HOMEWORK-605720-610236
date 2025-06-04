@@ -1,38 +1,38 @@
 package it.uniroma3.diadia;
 
+import java.util.LinkedList;
+
 public class IOSimulator implements IO {
 
-    private String[] righeDaLeggere;
-    private String[] messaggiScritti;
+    private LinkedList<String> righeDaLeggere;
+    private LinkedList<String> messaggiScritti;
     private int indiceLettura;
     private int indiceScrittura;
 
-    public IOSimulator(String[] righeDaLeggere) {
+    public IOSimulator(LinkedList<String> righeDaLeggere) {
         this.righeDaLeggere = righeDaLeggere;
-        this.messaggiScritti = new String[100];
+        this.messaggiScritti = new LinkedList<>();
         this.indiceLettura = 0;
         this.indiceScrittura = 0;
     }
-    
-    // Output
+
+	// Output
     @Override
     public void mostraMessaggio(String messaggio) {
-        if (indiceScrittura < messaggiScritti.length)
-            messaggiScritti[indiceScrittura++] = messaggio;
-        else
-        	System.out.println("Troppi messaggi stampati, array pieno.");
+    	messaggiScritti.add(messaggio);
     }
     
     // Input
     @Override
     public String leggiRiga() {
-        if (indiceLettura < righeDaLeggere.length)
-            return righeDaLeggere[indiceLettura++];
+        if (indiceLettura < righeDaLeggere.size()) {
+            return righeDaLeggere.get(indiceLettura++);
+        }
         else
             return "fine";
     }
 
-    public String[] getMessaggiScritti() {
+    public LinkedList<String> getMessaggiScritti() {
         return this.messaggiScritti;
     }
 

@@ -82,8 +82,8 @@ class StanzaTest {
 	@Test
 	public void testgetStanzaAdiacenteBase() {
 		Stanza stanza1 = new Stanza("stanza 1");
-		stanza.impostaStanzaAdiacente("sud", stanza1);
-		assertEquals(stanza1, stanza.getStanzaAdiacente("sud"));
+		stanza.impostaStanzaAdiacente(Direzione.sud, stanza1);
+		assertEquals(stanza1, stanza.getStanzaAdiacente(Direzione.sud));
 	}
 	
 	@Test
@@ -93,6 +93,30 @@ class StanzaTest {
 	
 	@Test
 	public void testgetStanzaAdiacenteNull() {
-		assertNull(stanza.getStanzaAdiacente("sud"));
+		assertNull(stanza.getStanzaAdiacente(Direzione.sud));
+	}
+	
+	//Test removeAttrezzo
+	@Test
+	public void testRemoveAttrezzoBase() {
+		stanza.addAttrezzo(attrezzo1);
+		assertTrue(stanza.removeAttrezzo(attrezzo1));
+	}
+	
+	@Test
+	public void testRemoveAttrezzoStanzaVuota() {
+		assertFalse(stanza.removeAttrezzo(attrezzo1));
+	}
+	
+	@Test
+	public void testRemoveAttrezzoNonPresente() {
+		Attrezzo attrezzo2 = new Attrezzo("Attrezzo2", 1);
+		stanza.addAttrezzo(attrezzo2);
+		assertFalse(stanza.removeAttrezzo(attrezzo1));
+	}
+	
+	@Test
+	public void testRemoveAttrezzoNull() {
+		assertFalse(stanza.removeAttrezzo(null));
 	}
 }

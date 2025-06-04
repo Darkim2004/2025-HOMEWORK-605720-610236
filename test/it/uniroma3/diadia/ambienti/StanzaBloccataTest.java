@@ -5,33 +5,31 @@ import static org.junit.Assert.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.uniroma3.diadia.attrezzi.Attrezzo;
-
 public class StanzaBloccataTest {
 	// Fixture
 	private StanzaBloccata stanza;
 	private Stanza stanzaInaccessibile;
 	private Stanza stanzaAccessibile;
-	private Attrezzo attrezzoSbloccante;
+	private String attrezzoSbloccante;
 	
 	@BeforeEach
 	public void setUp() {
-		attrezzoSbloccante = new Attrezzo("chiave", 1);
-		stanza = new StanzaBloccata("bloccata", "nord", attrezzoSbloccante);
+		attrezzoSbloccante = "chiave";
+		stanza = new StanzaBloccata("bloccata", Direzione.nord, attrezzoSbloccante);
 		stanzaInaccessibile = new Stanza("stanza");
 		stanzaAccessibile = new Stanza("stanza");
-		stanza.impostaStanzaAdiacente("nord", stanzaInaccessibile);
-		stanza.impostaStanzaAdiacente("sud", stanzaAccessibile);
+		stanza.impostaStanzaAdiacente(Direzione.nord, stanzaInaccessibile);
+		stanza.impostaStanzaAdiacente(Direzione.sud, stanzaAccessibile);
 	}
 	
 	// Test getStanzaAdiacente
 	@Test
 	public void testGetStanzaAdiacenteSbloccata() {
-		assertEquals(stanzaAccessibile,stanza.getStanzaAdiacente("sud"));
+		assertEquals(stanzaAccessibile,stanza.getStanzaAdiacente(Direzione.sud));
 	}
 	
 	@Test
 	public void testGetStanzaAdiacenteBloccata() {
-		assertEquals(stanza,stanza.getStanzaAdiacente("nord"));
+		assertEquals(stanza,stanza.getStanzaAdiacente(Direzione.nord));
 	}
 }

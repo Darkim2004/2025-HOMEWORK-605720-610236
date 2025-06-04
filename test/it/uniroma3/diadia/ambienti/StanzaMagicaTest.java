@@ -2,6 +2,7 @@ package it.uniroma3.diadia.ambienti;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,7 @@ public class StanzaMagicaTest {
 	@Test
 	public void testaddAttrezzo2Posati() {
 		stanza.addAttrezzo(attrezzo1);
-		stanza.addAttrezzo(attrezzo2);
+		assertTrue(stanza.addAttrezzo(attrezzo2));
 		assertEquals("etivaiccaC", stanza.getAttrezzo("etivaiccaC").getNome());
 	}
 	

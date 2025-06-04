@@ -1,8 +1,6 @@
 package it.uniroma3.diadia.attrezzi;
 
 
-
-
 /**
  * Una semplice classe che modella un attrezzo.
  * Gli attrezzi possono trovarsi all'interno delle stanze
@@ -13,7 +11,7 @@ package it.uniroma3.diadia.attrezzi;
  * @see Stanza
  * @version base
  */
-public class Attrezzo {
+public class Attrezzo implements Comparable<Attrezzo>{
 
 	private String nome;
 	private int peso;
@@ -51,5 +49,36 @@ public class Attrezzo {
 	public String toString() {
 		return this.getNome()+" ("+this.getPeso()+"kg)";
 	}
-
+	
+	/**
+	 * Compara due attrezzi e resituisce un booleano 
+	 * @param L'oggetto da comparare
+	 * @return Booleano
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null || obj.getClass()!=this.getClass()) {
+			return false;
+		}
+		Attrezzo that = (Attrezzo)obj;
+		return that.getNome().equals(this.getNome());
+	}
+	
+	/**
+	 * Fa l'hashCode di attrezzo 
+	 * @return L'hash come intero
+	 */
+	@Override
+	public int hashCode() {
+		return this.getNome().hashCode();
+	}
+	
+	/**
+	 * Compara gli attrezzi in base al nome 
+	 * @return 0 se hanno lo stesso nome
+	 */
+	@Override
+	public int compareTo(Attrezzo that) {
+		return this.getNome().compareTo(that.getNome());
+	}
 }
