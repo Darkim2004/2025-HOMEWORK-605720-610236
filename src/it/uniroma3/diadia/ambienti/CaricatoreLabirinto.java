@@ -1,6 +1,7 @@
 package it.uniroma3.diadia.ambienti;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import it.uniroma3.diadia.FormatoFileNonValidoException;
@@ -77,6 +78,12 @@ public class CaricatoreLabirinto {
 	public CaricatoreLabirinto(StringReader reader) throws FileNotFoundException {
 		this.nome2stanza = new HashMap<String,Stanza>();
 		this.reader = new LineNumberReader(reader);
+	}
+	
+	public CaricatoreLabirinto(InputStream in) {
+	    this.nome2stanza = new HashMap<String, Stanza>();
+	    // Leggiamo UTF-8 così funziona anche da JAR su tutte le piattaforme
+	    this.reader = new LineNumberReader(new InputStreamReader(in, StandardCharsets.UTF_8));
 	}
 
 	public void carica() throws FormatoFileNonValidoException {

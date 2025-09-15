@@ -1,6 +1,7 @@
 package it.uniroma3.diadia.ambienti;
 
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,11 +21,36 @@ public class Labirinto {
 		this.stanzaVincente = c.getStanzaVincente();
 	}
 	
+	private Labirinto(InputStream in) throws FormatoFileNonValidoException {
+	    CaricatoreLabirinto c = new CaricatoreLabirinto(in);
+	    c.carica();
+	    this.stanzaIniziale = c.getStanzaIniziale();
+	    this.stanzaVincente = c.getStanzaVincente();
+	}
+	
 	private Labirinto() {}
 	
-	public static LabirintoBuilder newBuilder(String labirinto) throws FileNotFoundException, FormatoFileNonValidoException {
+	/*public static LabirintoBuilder newBuilder(String labirinto) throws FileNotFoundException, FormatoFileNonValidoException {
 		return new LabirintoBuilder(labirinto);
+	}*/
+	
+	public static LabirintoBuilder newBuilder(String nomeRisorsaOFile)
+	        throws FileNotFoundException, FormatoFileNonValidoException {
+
+	    // 1) prova come RISORSA nel classpath (es. resources/maps/labirinto5.txt)
+	    InputStream in = Labirinto.class.getResourceAsStream("/maps/" + nomeRisorsaOFile);
+	    if (in == null) {
+	        // se uno passa già "/maps/xyz.txt", permettiamolo
+	        in = Labirinto.class.getResourceAsStream("/" + nomeRisorsaOFile);
+	    }
+	    if (in != null) {
+	        return new LabirintoBuilder(in);
+	    }
+
+	    // 2) fallback: FILE SYSTEM (vecchio comportamento)
+	    return new LabirintoBuilder(nomeRisorsaOFile);
 	}
+
 
 	/**
 	 * Crea tutte le stanze e le porte di collegamento
@@ -96,6 +122,11 @@ public class Labirinto {
 		public LabirintoBuilder() throws FileNotFoundException, FormatoFileNonValidoException {
 			labirinto = new Labirinto();
 			this.nome2stanza = new HashMap<>();
+		}
+		
+		public LabirintoBuilder(InputStream in) throws FormatoFileNonValidoException {
+		    this.labirinto = new Labirinto(in);
+		    this.nome2stanza = new HashMap<>();
 		}
 
 		public LabirintoBuilder addStanzaIniziale(String nome) {

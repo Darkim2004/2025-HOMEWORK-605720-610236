@@ -16,8 +16,8 @@ import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
  *
  * Questa e' la classe principale crea e istanzia tutte le altre
  *
- * @author  docente di POO
- * 			studente di POO
+ * @author  studente di POO
+ *			docente di POO
  *         (da un'idea di Michael Kolling and David J. Barnes)
  * 			
  *          
@@ -79,7 +79,6 @@ public class DiaDia {
 			io.mostraMessaggio("Hai esaurito i CFU!");
 		return this.partita.isFinita();
 	}
-
 
 	public static void main(String[] argc) throws Exception {
 		/* N.B. unica istanza di IOConsole
